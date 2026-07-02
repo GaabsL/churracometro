@@ -1,0 +1,6 @@
+{
+  "name": "Relatório Churrascômetro - Junho 2026",
+  "description": "Dashboard executivo de performance e divulgação digital da campanha Churrascômetro em Junho de 2026.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

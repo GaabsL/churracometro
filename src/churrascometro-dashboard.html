@@ -1,0 +1,1081 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relatório de Performance: Churrascômetro (Junho 2026)</title>
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* VARIABLES & ROOT CONFIG */
+        :root {
+            --bg-main: #f8fafc;
+            --bg-card: #ffffff;
+            --text-main: #0f172a;
+            --text-muted: #475569;
+            --text-light: #94a3b8;
+            --border: #e2e8f0;
+            
+            /* Color Palette */
+            --primary: #ea580c; /* Churrasco fire / Orange */
+            --primary-hover: #c2410c;
+            --primary-light: #ffedd5;
+            
+            --gold: #d97706; /* Amber / Gold accent */
+            --gold-light: #fef3c7;
+            
+            --success: #10b981; /* Emerald green for growth */
+            --success-hover: #059669;
+            --success-light: #d1fae5;
+            
+            --accent: #0ea5e9; /* Sky blue for traffic / digital */
+            --accent-light: #e0f2fe;
+            
+            /* Social colors */
+            --color-instagram: #e1306c;
+            --color-facebook: #1877f2;
+            --color-tiktok: #000000;
+            
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+        }
+
+        /* RESET & GENERAL STYLES */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding: 0;
+            font-size: 15px;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 2.5rem 1.5rem;
+        }
+
+        /* HEADER STYLES */
+        header {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            color: white;
+            padding: 3rem 2rem;
+            border-radius: 20px;
+            margin-bottom: 2.5rem;
+            box-shadow: var(--shadow-lg);
+            position: relative;
+            overflow: hidden;
+            border-bottom: 4px solid var(--primary);
+        }
+
+        /* Flame/Grill background detail pattern */
+        header::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 300px;
+            height: 100%;
+            background: radial-gradient(circle, rgba(234, 88, 12, 0.15) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .header-badge {
+            background-color: var(--primary);
+            color: white;
+            padding: 0.35rem 0.85rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            display: inline-block;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 4px rgba(234, 88, 12, 0.3);
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            letter-spacing: -0.025em;
+            margin-bottom: 0.75rem;
+            line-height: 1.2;
+            background: linear-gradient(to right, #ffffff, #f1f5f9, #ffedd5);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        header p {
+            color: #cbd5e1;
+            font-size: 1.1rem;
+            font-weight: 400;
+            max-width: 800px;
+        }
+
+        /* SECTION LAYOUT */
+        section {
+            margin-bottom: 3.5rem;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 0.75rem;
+        }
+
+        .section-icon {
+            background-color: var(--primary-light);
+            color: var(--primary);
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+        }
+
+        .section-header h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1e293b;
+            letter-spacing: -0.02em;
+        }
+
+        .section-intro {
+            color: var(--text-muted);
+            font-size: 1.05rem;
+            margin-bottom: 1.75rem;
+            max-width: 900px;
+        }
+
+        /* CARD GRID & BIG NUMBERS */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .card {
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 1.75rem;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow-sm);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+            border-color: #cbd5e1;
+        }
+
+        .card-header-flex {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+
+        .card-icon-wrapper {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+        }
+
+        .card-icon-wrapper.primary {
+            background-color: var(--primary-light);
+            color: var(--primary);
+        }
+
+        .card-icon-wrapper.success {
+            background-color: var(--success-light);
+            color: var(--success);
+        }
+
+        .card-icon-wrapper.accent {
+            background-color: var(--accent-light);
+            color: var(--accent);
+        }
+
+        .card-icon-wrapper.gold {
+            background-color: var(--gold-light);
+            color: var(--gold);
+        }
+
+        .card-title {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .card-value {
+            font-size: 2.25rem;
+            font-weight: 800;
+            color: var(--text-main);
+            line-height: 1.1;
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.03em;
+        }
+
+        .card-desc {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 0.35rem;
+        }
+
+        .card-trend {
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.15rem;
+        }
+
+        .card-trend.positive {
+            color: var(--success);
+        }
+
+        /* TABLES */
+        .table-responsive {
+            background-color: var(--bg-card);
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow-sm);
+            overflow: hidden;
+            margin-bottom: 2rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        thead {
+            background-color: #f8fafc;
+            border-bottom: 2px solid var(--border);
+        }
+
+        th {
+            padding: 1.1rem 1.5rem;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: #475569;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        td {
+            padding: 1.1rem 1.5rem;
+            border-bottom: 1px solid var(--border);
+            color: var(--text-main);
+            vertical-align: middle;
+        }
+
+        tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        tbody tr {
+            transition: background-color 0.15s ease;
+        }
+
+        tbody tr:hover {
+            background-color: #f1f5f9;
+        }
+
+        /* Platform labels */
+        .platform-cell {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-weight: 600;
+        }
+
+        .platform-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1rem;
+        }
+
+        .platform-icon.instagram {
+            background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%,#d6249f 60%,#285aec 90%);
+        }
+
+        .platform-icon.instagram-stories {
+            background: linear-gradient(135deg, #f97316 0%, #e1306c 100%);
+        }
+
+        .platform-icon.facebook {
+            background-color: var(--color-facebook);
+        }
+
+        .platform-icon.tiktok {
+            background-color: var(--color-tiktok);
+        }
+
+        /* Detail Tags inside table */
+        .details-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            max-width: 500px;
+        }
+
+        .detail-tag {
+            background-color: #f1f5f9;
+            color: #475569;
+            font-size: 0.75rem;
+            font-weight: 500;
+            padding: 0.25rem 0.6rem;
+            border-radius: 6px;
+            border: 1px solid #e2e8f0;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .detail-tag-highlight {
+            background-color: var(--primary-light);
+            color: var(--primary);
+            border-color: #ffedd5;
+            font-weight: 600;
+        }
+
+        .detail-tag i {
+            font-size: 0.7rem;
+            opacity: 0.8;
+        }
+
+        /* Comparative growth badges */
+        .growth-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+            padding: 0.25rem 0.6rem;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+
+        .growth-badge.positive {
+            background-color: var(--success-light);
+            color: var(--success-hover);
+        }
+
+        .growth-badge.neutral {
+            background-color: #f1f5f9;
+            color: #475569;
+        }
+
+        /* CALLOUTS AND BLOCKS */
+        .alert-critical {
+            background: linear-gradient(to right, #fffbeb, #fff7ed);
+            border-left: 6px solid #f59e0b;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 2.25rem;
+            display: flex;
+            gap: 1.25rem;
+            align-items: flex-start;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .alert-critical-icon {
+            color: #d97706;
+            font-size: 1.75rem;
+            margin-top: 0.15rem;
+        }
+
+        .alert-critical-content h3 {
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: #78350f;
+            margin-bottom: 0.35rem;
+            text-transform: uppercase;
+            letter-spacing: 0.025em;
+        }
+
+        .alert-critical-content p {
+            color: #92400e;
+            font-size: 1.05rem;
+            font-weight: 600;
+            line-height: 1.5;
+        }
+
+        .insights-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .insight-card {
+            background-color: #f8fafc;
+            border-left: 4px solid var(--primary);
+            border-radius: 0 12px 12px 0;
+            padding: 1.25rem 1.5rem;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            border-right: 1px solid var(--border);
+            display: flex;
+            gap: 1rem;
+        }
+
+        .insight-card.accent {
+            border-left-color: var(--accent);
+        }
+
+        .insight-card.success {
+            border-left-color: var(--success);
+        }
+
+        .insight-icon {
+            color: var(--primary);
+            font-size: 1.25rem;
+            margin-top: 0.15rem;
+        }
+
+        .insight-card.accent .insight-icon {
+            color: var(--accent);
+        }
+
+        .insight-card.success .insight-icon {
+            color: var(--success);
+        }
+
+        .insight-text h4 {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 0.25rem;
+        }
+
+        .insight-text p {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        /* FOOTER */
+        footer {
+            margin-top: 5rem;
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+            color: var(--text-light);
+            font-size: 0.875rem;
+        }
+
+        footer strong {
+            color: var(--text-muted);
+        }
+
+        /* VISUAL PROGRESS COMPARISON (PURE CSS INFOGRAPHIC) */
+        .comparison-visual-container {
+            background-color: var(--bg-card);
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            padding: 1.75rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .visual-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 1.25rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .bar-chart-flex {
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+        }
+
+        .bar-item {
+            display: grid;
+            grid-template-columns: 180px 1fr 80px;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .bar-label {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--text-muted);
+        }
+
+        .bar-track {
+            background-color: #e2e8f0;
+            height: 16px;
+            border-radius: 9999px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .bar-fill {
+            height: 100%;
+            border-radius: 9999px;
+            background: var(--gradient-fire);
+            transition: width 1s ease-in-out;
+        }
+
+        .bar-fill.accent {
+            background: linear-gradient(135deg, var(--accent) 0%, #0284c7 100%);
+        }
+
+        .bar-fill.gold {
+            background: linear-gradient(135deg, var(--gold) 0%, #b45309 100%);
+        }
+
+        .bar-fill.success {
+            background: linear-gradient(135deg, var(--success) 0%, var(--success-hover) 100%);
+        }
+
+        .bar-value-text {
+            font-size: 0.875rem;
+            font-weight: 700;
+            text-align: right;
+            color: var(--text-main);
+        }
+
+        /* RESPONSIVE MEDIA QUERIES */
+        @media (max-width: 768px) {
+            .container {
+                padding: 1.5rem 1rem;
+            }
+            
+            header {
+                padding: 2rem 1.5rem;
+                border-radius: 16px;
+            }
+
+            header h1 {
+                font-size: 1.85rem;
+            }
+
+            .section-header h2 {
+                font-size: 1.25rem;
+            }
+
+            th, td {
+                padding: 0.85rem 1rem;
+                font-size: 0.85rem;
+            }
+
+            .bar-item {
+                grid-template-columns: 1fr;
+                gap: 0.4rem;
+            }
+
+            .bar-value-text {
+                text-align: left;
+                margin-top: 0.2rem;
+            }
+
+            .alert-critical {
+                flex-direction: column;
+                gap: 0.75rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        
+        <!-- HEADER -->
+        <header>
+            <div class="header-content">
+                <span class="header-badge">Relatório Executivo</span>
+                <h1>Dashboard de Performance: Churrascômetro (Junho 2026)</h1>
+                <p>Análise consolidada de divulgação digital, atração de leads e impacto comercial da reformulação completa de experiência e layout da página.</p>
+            </div>
+        </header>
+
+        <!-- SEÇÃO 1: REDES SOCIAIS -->
+        <section id="social-media">
+            <div class="section-header">
+                <div class="section-icon">
+                    <i class="fa-solid fa-share-nodes"></i>
+                </div>
+                <h2>Divulgação nas Redes Sociais (Atração & Conversão)</h2>
+            </div>
+            <p class="section-intro">
+                A estratégia de distribuição multiplataforma delimitou perfeitamente o papel de cada canal: o <strong>Feed do Instagram</strong> atuou como o grande gerador de alcance de marca, o <strong>Facebook</strong> obteve engajamento histórico, enquanto os <strong>Stories</strong> serviram como o motor eficiente de conversão de tráfego direto.
+            </p>
+
+            <!-- BIG NUMBERS SOCIAIS -->
+            <div class="cards-grid">
+                <div class="card">
+                    <div class="card-header-flex">
+                        <span class="card-title">Alcance Multiplataforma</span>
+                        <div class="card-icon-wrapper accent">
+                            <i class="fa-solid fa-users"></i>
+                        </div>
+                    </div>
+                    <div class="card-value">+538.000</div>
+                    <div class="card-desc">
+                        <span class="card-trend positive"><i class="fa-solid fa-circle-up"></i> Pessoas Impactadas</span>
+                        <span>no mês</span>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header-flex">
+                        <span class="card-title">Engajamento Total</span>
+                        <div class="card-icon-wrapper success">
+                            <i class="fa-solid fa-thumbs-up"></i>
+                        </div>
+                    </div>
+                    <div class="card-value">+16.900</div>
+                    <div class="card-desc">
+                        <span class="card-trend positive"><i class="fa-solid fa-circle-up"></i> Interações Diretas</span>
+                        <span>curtidas e envios</span>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header-flex">
+                        <span class="card-title">Conversões por Stories</span>
+                        <div class="card-icon-wrapper primary">
+                            <i class="fa-solid fa-arrow-pointer"></i>
+                        </div>
+                    </div>
+                    <div class="card-value">1.825</div>
+                    <div class="card-desc">
+                        <span class="card-trend positive"><i class="fa-solid fa-circle-up"></i> Cliques no Link</span>
+                        <span>direcionamentos p/ o site</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TABELA SOCIAIS -->
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Plataforma / Canal</th>
+                            <th>Métrica Base</th>
+                            <th>Interações</th>
+                            <th>Detalhamento Qualitativo das Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div class="platform-cell">
+                                    <div class="platform-icon instagram">
+                                        <i class="fa-brands fa-instagram"></i>
+                                    </div>
+                                    <div>
+                                        Instagram Feed
+                                        <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: normal;">Reels / Impulsionado</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td><strong>315.498</strong> <span style="font-size: 0.75rem; color: var(--text-muted);">Alcance</span></td>
+                            <td><strong>5.334</strong></td>
+                            <td>
+                                <div class="details-wrapper">
+                                    <span class="detail-tag"><i class="fa-regular fa-heart"></i> 4.650 Curtidas</span>
+                                    <span class="detail-tag"><i class="fa-regular fa-comment"></i> 70 Comentários</span>
+                                    <span class="detail-tag"><i class="fa-regular fa-paper-plane"></i> 393 Envios</span>
+                                    <span class="detail-tag"><i class="fa-regular fa-bookmark"></i> 221 Salvos</span>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="platform-cell">
+                                    <div class="platform-icon instagram-stories">
+                                        <i class="fa-brands fa-instagram"></i>
+                                    </div>
+                                    <div>
+                                        Instagram Stories
+                                        <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: normal;">Stories / Orgânico</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td><strong>174.140</strong> <span style="font-size: 0.75rem; color: var(--text-muted);">Alcance</span></td>
+                            <td><strong>3.403</strong></td>
+                            <td>
+                                <div class="details-wrapper">
+                                    <span class="detail-tag detail-tag-highlight"><i class="fa-solid fa-link"></i> 1.825 Cliques no link</span>
+                                    <span class="detail-tag"><i class="fa-regular fa-heart"></i> 272 Curtidas</span>
+                                    <span class="detail-tag"><i class="fa-regular fa-comment-dots"></i> 22 Respostas</span>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="platform-cell">
+                                    <div class="platform-icon facebook">
+                                        <i class="fa-brands fa-facebook-f"></i>
+                                    </div>
+                                    <div>
+                                        Facebook
+                                        <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: normal;">Estático / Impulsionado</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td><strong>48.401</strong> <span style="font-size: 0.75rem; color: var(--text-muted);">Alcance</span></td>
+                            <td><strong>8.129</strong></td>
+                            <td>
+                                <div class="details-wrapper">
+                                    <span class="detail-tag detail-tag-highlight" style="background-color: var(--success-light); color: var(--success-hover); border-color: var(--success-light)"><i class="fa-solid fa-chart-line"></i> Engajamento Histórico: 16,8%</span>
+                                    <span class="detail-tag"><i class="fa-regular fa-heart"></i> 7.678 Curtidas</span>
+                                    <span class="detail-tag"><i class="fa-regular fa-comment"></i> 195 Comentários</span>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="platform-cell">
+                                    <div class="platform-icon tiktok">
+                                        <i class="fa-brands fa-tiktok"></i>
+                                    </div>
+                                    <div>
+                                        TikTok
+                                        <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: normal;">Vídeo / Orgânico</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td><strong>1.292</strong> <span style="font-size: 0.75rem; color: var(--text-muted);">Visualizações</span></td>
+                            <td><strong>38</strong></td>
+                            <td>
+                                <div class="details-wrapper">
+                                    <span class="detail-tag"><i class="fa-regular fa-heart"></i> 33 Curtidas</span>
+                                    <span class="detail-tag"><i class="fa-solid fa-share"></i> 5 Compartilhamentos</span>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- DISTRIBUIÇÃO VISUAL DE ALCANCE -->
+            <div class="comparison-visual-container">
+                <div class="visual-title">
+                    <i class="fa-solid fa-chart-bar" style="color: var(--primary);"></i>
+                    Proporção do Alcance por Canal de Redes Sociais
+                </div>
+                <div class="bar-chart-flex">
+                    <div class="bar-item">
+                        <span class="bar-label"><i class="fa-brands fa-instagram" style="color: var(--color-instagram);"></i> Instagram Feed</span>
+                        <div class="bar-track">
+                            <div class="bar-fill" style="width: 58.6%;"></div>
+                        </div>
+                        <span class="bar-value-text">315.498 (58.6%)</span>
+                    </div>
+                    <div class="bar-item">
+                        <span class="bar-label"><i class="fa-brands fa-instagram" style="gradient: var(--primary);"></i> Instagram Stories</span>
+                        <div class="bar-track">
+                            <div class="bar-fill accent" style="width: 32.4%;"></div>
+                        </div>
+                        <span class="bar-value-text">174.140 (32.4%)</span>
+                    </div>
+                    <div class="bar-item">
+                        <span class="bar-label"><i class="fa-brands fa-facebook-f" style="color: var(--color-facebook);"></i> Facebook Paid</span>
+                        <div class="bar-track">
+                            <div class="bar-fill gold" style="width: 9.0%;"></div>
+                        </div>
+                        <span class="bar-value-text">48.401 (9.0%)</span>
+                    </div>
+                    <div class="bar-item">
+                        <span class="bar-label"><i class="fa-brands fa-tiktok"></i> TikTok Organic</span>
+                        <div class="bar-track">
+                            <div class="bar-fill success" style="width: 0.2%;"></div>
+                        </div>
+                        <span class="bar-value-text">1.292 (0.2%)</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- BLOCO DE INSIGHTS REDES -->
+            <div class="insights-grid">
+                <div class="insight-card">
+                    <div class="insight-icon">
+                        <i class="fa-solid fa-bullseye"></i>
+                    </div>
+                    <div class="insight-text">
+                        <h4>Foco Pago: Massa Crítica</h4>
+                        <p>O Reels pago no Instagram no início do mês (05/06) foi crucial para construir a audiência de marca e injetar volume inicial na base de usuários.</p>
+                    </div>
+                </div>
+
+                <div class="insight-card accent">
+                    <div class="insight-icon">
+                        <i class="fa-solid fa-arrow-trend-up"></i>
+                    </div>
+                    <div class="insight-text">
+                        <h4>Facebook Fora da Curva</h4>
+                        <p>Alcançamos uma taxa de engajamento histórica de 16,8% no Facebook impulsionado, demonstrando excelente sintonia e fit do produto com essa persona.</p>
+                    </div>
+                </div>
+
+                <div class="insight-card success">
+                    <div class="insight-icon">
+                        <i class="fa-solid fa-calendar-check"></i>
+                    </div>
+                    <div class="insight-text">
+                        <h4>O "Efeito Sexta-Feira"</h4>
+                        <p>Registramos o pico absoluto de tráfego orgânico via Stories na sexta-feira (26/06) com 812 cliques diretos. Ativação perfeita do gatilho mental do churrasco de fim de semana.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEÇÃO 2: PERFORMANCE DO SITE -->
+        <section id="site-performance">
+            <div class="section-header">
+                <div class="section-icon">
+                    <i class="fa-solid fa-laptop-code"></i>
+                </div>
+                <h2>Performance do Site (O Impacto da Reformulação)</h2>
+            </div>
+            <p class="section-intro">
+                Em junho de 2026, a página do <strong>Churrascômetro</strong> passou por uma completa reestruturação de usabilidade, design de interação e arquitetura. Os resultados colhidos validam de forma irrefutável a nova experiência.
+            </p>
+
+            <!-- ALERTA CRÍTICO DE PERFORMANCE -->
+            <div class="alert-critical">
+                <div class="alert-critical-icon">
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+                </div>
+                <div class="alert-critical-content">
+                    <h3>Impacto Excepcional da Nova UX</h3>
+                    <p>FATO CRÍTICO: Os resultados de APENAS UM ÚNICO MÊS (Junho de 2026) superaram com folga e quase DOBRARAM os números gerados durante o ANO INTEIRO de 2025 somado.</p>
+                </div>
+            </div>
+
+            <!-- BIG NUMBERS SITE -->
+            <div class="cards-grid">
+                <div class="card">
+                    <div class="card-header-flex">
+                        <span class="card-title">Sessões (Acessos)</span>
+                        <div class="card-icon-wrapper primary">
+                            <i class="fa-solid fa-globe"></i>
+                        </div>
+                    </div>
+                    <div class="card-value">6.571</div>
+                    <div class="card-desc">
+                        <span class="card-trend positive"><i class="fa-solid fa-circle-up"></i> Junho / 2026</span>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header-flex">
+                        <span class="card-title">Usuários Ativos</span>
+                        <div class="card-icon-wrapper accent">
+                            <i class="fa-solid fa-user-check"></i>
+                        </div>
+                    </div>
+                    <div class="card-value">5.679</div>
+                    <div class="card-desc">
+                        <span class="card-trend positive"><i class="fa-solid fa-circle-up"></i> Visitantes Únicos</span>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header-flex">
+                        <span class="card-title">Recorrência</span>
+                        <div class="card-icon-wrapper gold">
+                            <i class="fa-solid fa-rotate-left"></i>
+                        </div>
+                    </div>
+                    <div class="card-value">1.707</div>
+                    <div class="card-desc">
+                        <span class="card-trend positive"><i class="fa-solid fa-circle-up"></i> Retornaram à ferramenta</span>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header-flex">
+                        <span class="card-title">Retenção Média</span>
+                        <div class="card-icon-wrapper success">
+                            <i class="fa-solid fa-stopwatch"></i>
+                        </div>
+                    </div>
+                    <div class="card-value">54s</div>
+                    <div class="card-desc">
+                        <span class="card-trend positive"><i class="fa-solid fa-circle-up"></i> Tempo de Sessão</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TABELA COMPARATIVA -->
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Indicador-Chave (Métrica de Performance)</th>
+                            <th style="text-align: center;">Ano Inteiro de 2025</th>
+                            <th style="text-align: center;">Apenas Junho de 2026</th>
+                            <th style="text-align: center; width: 180px;">Crescimento (%)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Acessos Totais (Sessões)</strong></td>
+                            <td style="text-align: center; color: var(--text-muted);">3.904 sessões</td>
+                            <td style="text-align: center; font-weight: 700;">6.571 sessões</td>
+                            <td style="text-align: center;">
+                                <span class="growth-badge positive">
+                                    <i class="fa-solid fa-caret-up"></i> +68%
+                                </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>Usuários Ativos Unificados</strong></td>
+                            <td style="text-align: center; color: var(--text-muted);">3.460 usuários</td>
+                            <td style="text-align: center; font-weight: 700;">5.679 usuários</td>
+                            <td style="text-align: center;">
+                                <span class="growth-badge positive">
+                                    <i class="fa-solid fa-caret-up"></i> +64%
+                                </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>Usuários Recorrentes (Fidelização)</strong></td>
+                            <td style="text-align: center; color: var(--text-muted);">535 recorrentes</td>
+                            <td style="text-align: center; font-weight: 700; color: var(--gold);">1.707 recorrentes</td>
+                            <td style="text-align: center;">
+                                <span class="growth-badge positive" style="background-color: #fef3c7; color: #b45309;">
+                                    <i class="fa-solid fa-arrow-trend-up"></i> +219% (3x mais)
+                                </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>Tempo Médio de Retenção (Uso)</strong></td>
+                            <td style="text-align: center; color: var(--text-muted);">41 segundos</td>
+                            <td style="text-align: center; font-weight: 700; color: var(--success-hover);">54 segundos</td>
+                            <td style="text-align: center;">
+                                <span class="growth-badge positive">
+                                    <i class="fa-solid fa-caret-up"></i> +31%
+                                </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>Taxa de Engajamento Interno</strong></td>
+                            <td style="text-align: center; color: var(--text-muted);">66,19%</td>
+                            <td style="text-align: center; font-weight: 700;">65,36%</td>
+                            <td style="text-align: center;">
+                                <span class="growth-badge neutral">
+                                    <i class="fa-solid fa-minus"></i> -0,83% (Estável)
+                                </span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- INFOGRÁFICO DE CRESCIMENTO -->
+            <div class="comparison-visual-container">
+                <div class="visual-title">
+                    <i class="fa-solid fa-rocket" style="color: var(--success);"></i>
+                    Comparativo Histórico de Engajamento (2025 Inteiro vs Apenas Junho 2026)
+                </div>
+                <div class="bar-chart-flex">
+                    <div style="border-bottom: 1px dashed var(--border); padding-bottom: 0.75rem;">
+                        <h4 style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 0.5rem;">Sessões</h4>
+                        <div class="bar-item">
+                            <span class="bar-label">Ano de 2025 (Total)</span>
+                            <div class="bar-track">
+                                <div class="bar-fill accent" style="width: 37%;"></div>
+                            </div>
+                            <span class="bar-value-text">3.904</span>
+                        </div>
+                        <div class="bar-item" style="margin-top: 0.5rem;">
+                            <span class="bar-label">Apenas Junho 2026</span>
+                            <div class="bar-track">
+                                <div class="bar-fill" style="width: 63%;"></div>
+                            </div>
+                            <span class="bar-value-text">6.571 (+68%)</span>
+                        </div>
+                    </div>
+
+                    <div style="padding-top: 0.5rem;">
+                        <h4 style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 0.5rem;">Usuários Recorrentes (Fidelização)</h4>
+                        <div class="bar-item">
+                            <span class="bar-label">Ano de 2025 (Total)</span>
+                            <div class="bar-track">
+                                <div class="bar-fill accent" style="width: 23%;"></div>
+                            </div>
+                            <span class="bar-value-text">535</span>
+                        </div>
+                        <div class="bar-item" style="margin-top: 0.5rem;">
+                            <span class="bar-label">Apenas Junho 2026</span>
+                            <div class="bar-track">
+                                <div class="bar-fill gold" style="width: 77%;"></div>
+                            </div>
+                            <span class="bar-value-text">1.707 (+219%)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- INSIGHTS SITE -->
+            <div class="insight-card" style="border-left-color: var(--success); margin-top: 1.5rem;">
+                <div class="insight-icon" style="color: var(--success);">
+                    <i class="fa-solid fa-award"></i>
+                </div>
+                <div class="insight-text">
+                    <h4>Análise Estratégica da Reformulação</h4>
+                    <p>O aumento drástico do tempo de retenção (54s) combinado ao triplo de usuários recorrentes (1.707) prova que a nova UX resolveu atritos práticos de usabilidade. A ferramenta tornou-se verdadeiramente útil e intuitiva, estimulando o usuário a consultá-la múltiplas vezes e fidelizar-se ao serviço.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- FOOTER -->
+        <footer>
+            <p><strong>Relatório Gerencial de Performance</strong> • Campanha Churrascômetro • Gerado em Julho de 2026.</p>
+        </footer>
+
+    </div>
+
+</body>
+</html>
