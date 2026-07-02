@@ -1,4 +1,5 @@
-import { motion } from "motion/react";
+import { useState } from "react";
+import { motion, AnimatePresence } from "motion/react";
 import {
   Share2,
   Users,
@@ -21,10 +22,12 @@ import {
   Share,
   Link,
   MessageSquare,
-  Sparkles
+  Sparkles,
+  X
 } from "lucide-react";
 
 export default function App() {
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
   return (
     <div id="app-root" className="min-h-screen bg-[#F4F5F7] font-sans text-[#2D3436] antialiased selection:bg-[#E67E22] selection:text-white">
       
@@ -111,7 +114,7 @@ export default function App() {
             </div>
 
             <p className="text-xs text-gray-600 mb-4 italic leading-relaxed">
-              A estratégia multiplataforma dividiu com precisão o papel de cada rede social na jornada da campanha: o <strong className="text-gray-800 font-semibold">Feed do Instagram</strong> gerou reconhecimento de marca de forma massiva, o <strong className="text-gray-800 font-semibold">Facebook</strong> obteve engajamento fora de qualquer média de mercado, e os <strong className="text-gray-800 font-semibold">Stories do Instagram</strong> atuaram como o motor definitivo de conversão de tráfego direto.
+              A estratégia multiplataforma dividiu com precisão o papel de cada rede social na jornada da campanha: o <strong className="text-gray-800 font-semibold">Feed do Instagram</strong> gerou reconhecimento de marca de forma massiva, o <strong className="text-gray-800 font-semibold">Facebook</strong> obteve engajamento fora de qualquer média de mercado, e os <strong className="text-gray-800 font-semibold">Stories do Instagram</strong> atuaram como o motor definitivo de conversão de tráfego direto. <strong className="text-gray-800 font-semibold">O caminho do usuário até a ferramenta era realizado através de redirecionamento dos links inseridos nos posts publicados.</strong>
             </p>
 
             {/* BIG NUMBERS SOCIAL */}
@@ -257,6 +260,271 @@ export default function App() {
 
                   </tbody>
                 </table>
+              </div>
+            </div>
+
+            {/* TABELA DETALHADA DE MÉTRICAS POR POST */}
+            <div className="mb-6">
+              <div className="mb-3 flex items-center justify-between border-b border-gray-200 pb-2">
+                <h3 className="text-sm font-bold text-[#2C3E50] border-l-4 border-[#E67E22] pl-3 uppercase tracking-tight">Tabela Detalhada de Métricas por Post (Visão Individual de cada Publicação)</h3>
+                <span className="text-[10px] bg-gray-100 px-2 py-0.5 rounded text-gray-400 font-medium">Performance por Post</span>
+              </div>
+              
+              <div className="overflow-hidden rounded-xl border border-gray-150 bg-white shadow-xs">
+                <div className="overflow-x-auto">
+                  <table className="w-full text-left text-xs border-collapse">
+                    <thead>
+                      <tr className="bg-slate-50 border-b border-gray-150 text-[9px] font-bold uppercase tracking-wider text-gray-500">
+                        <th className="px-4 py-3">Data</th>
+                        <th className="px-4 py-3">Criativo</th>
+                        <th className="px-4 py-3">Plataforma</th>
+                        <th className="px-4 py-3">Formato</th>
+                        <th className="px-4 py-3 text-right">Alcance / Vis.</th>
+                        <th className="px-4 py-3 text-right">Interações</th>
+                        <th className="px-4 py-3">Detalhamento das Métricas</th>
+                        <th className="px-4 py-3 text-center">Engajamento</th>
+                        <th className="px-4 py-3 text-center">Status</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-gray-100">
+                      
+                      {/* Post 1 */}
+                      <tr className="bg-white hover:bg-gray-50/50 transition-colors">
+                        <td className="px-4 py-2.5 font-medium text-gray-600">05/06/2026</td>
+                        <td className="px-4 py-2.5">
+                          <img 
+                            src="https://i.imgur.com/g8uRczn.png" 
+                            alt="Criativo Post 1" 
+                            className="h-15 w-15 object-cover rounded-md border border-gray-200 shadow-xs hover:scale-125 transition-transform duration-200 cursor-zoom-in"
+                            referrerPolicy="no-referrer"
+                            onClick={() => setSelectedImage("https://i.imgur.com/g8uRczn.png")}
+                          />
+                        </td>
+                        <td className="px-4 py-2.5">
+                          <div className="flex items-center gap-1.5">
+                            <div className="flex h-5 w-5 items-center justify-center rounded bg-gradient-to-tr from-pink-500 via-red-500 to-yellow-500 text-white font-bold text-[8px] shadow-xs">
+                              ig
+                            </div>
+                            <span className="font-bold text-gray-800">Instagram Feed</span>
+                          </div>
+                        </td>
+                        <td className="px-4 py-2.5 text-gray-500 font-medium">Reels</td>
+                        <td className="px-4 py-2.5 text-right font-semibold text-gray-800">315.498</td>
+                        <td className="px-4 py-2.5 text-right font-semibold text-gray-800">5.334</td>
+                        <td className="px-4 py-2.5">
+                          <div className="flex flex-wrap gap-1">
+                            <span className="inline-flex items-center gap-0.5 rounded bg-gray-50 px-1.5 py-0.5 text-[9px] font-medium text-gray-600 border border-gray-100"><Heart className="h-2.5 w-2.5 text-gray-400" /> 4.650 Curtidas</span>
+                            <span className="inline-flex items-center gap-0.5 rounded bg-gray-50 px-1.5 py-0.5 text-[9px] font-medium text-gray-600 border border-gray-100"><MessageSquare className="h-2.5 w-2.5 text-gray-400" /> 70 Comentários</span>
+                            <span className="inline-flex items-center gap-0.5 rounded bg-gray-50 px-1.5 py-0.5 text-[9px] font-medium text-gray-600 border border-gray-100"><Send className="h-2.5 w-2.5 text-gray-400" /> 393 Envios</span>
+                            <span className="inline-flex items-center gap-0.5 rounded bg-gray-50 px-1.5 py-0.5 text-[9px] font-medium text-gray-600 border border-gray-100"><Bookmark className="h-2.5 w-2.5 text-gray-400" /> 221 Salvos</span>
+                          </div>
+                        </td>
+                        <td className="px-4 py-2.5 text-center font-bold text-gray-800">1,69%</td>
+                        <td className="px-4 py-2.5 text-center">
+                          <span className="inline-flex items-center rounded-full bg-orange-50 px-2 py-0.5 text-[9px] font-bold text-orange-700 border border-orange-100 shadow-xs">
+                            Impulsionado
+                          </span>
+                        </td>
+                      </tr>
+
+                      {/* Post 2 */}
+                      <tr className="bg-slate-50/45 hover:bg-gray-50/50 transition-colors">
+                        <td className="px-4 py-2.5 font-medium text-gray-600">05/06/2026</td>
+                        <td className="px-4 py-2.5">
+                          <img 
+                            src="https://i.imgur.com/k1bbZy5.png" 
+                            alt="Criativo Post 2" 
+                            className="h-15 w-15 object-cover rounded-md border border-gray-200 shadow-xs hover:scale-125 transition-transform duration-200 cursor-zoom-in"
+                            referrerPolicy="no-referrer"
+                            onClick={() => setSelectedImage("https://i.imgur.com/k1bbZy5.png")}
+                          />
+                        </td>
+                        <td className="px-4 py-2.5">
+                          <div className="flex items-center gap-1.5">
+                            <div className="flex h-5 w-5 items-center justify-center rounded bg-blue-600 text-white font-bold text-[8px] shadow-xs">
+                              fb
+                            </div>
+                            <span className="font-bold text-gray-800">Facebook</span>
+                          </div>
+                        </td>
+                        <td className="px-4 py-2.5 text-gray-500 font-medium">Estático</td>
+                        <td className="px-4 py-2.5 text-right font-semibold text-gray-800">48.401</td>
+                        <td className="px-4 py-2.5 text-right font-semibold text-green-600">8.129</td>
+                        <td className="px-4 py-2.5">
+                          <div className="flex flex-wrap gap-1">
+                            <span className="inline-flex items-center gap-0.5 rounded bg-gray-50 px-1.5 py-0.5 text-[9px] font-medium text-gray-600 border border-gray-100"><Heart className="h-2.5 w-2.5 text-gray-400" /> 7.678 Curtidas</span>
+                            <span className="inline-flex items-center gap-0.5 rounded bg-gray-50 px-1.5 py-0.5 text-[9px] font-medium text-gray-600 border border-gray-100"><MessageSquare className="h-2.5 w-2.5 text-gray-400" /> 195 Comentários</span>
+                          </div>
+                        </td>
+                        <td className="px-4 py-2.5 text-center font-bold text-gray-800">16,80%</td>
+                        <td className="px-4 py-2.5 text-center">
+                          <span className="inline-flex items-center rounded-full bg-orange-50 px-2 py-0.5 text-[9px] font-bold text-orange-700 border border-orange-100 shadow-xs">
+                            Impulsionado
+                          </span>
+                        </td>
+                      </tr>
+
+                      {/* Post 3 */}
+                      <tr className="bg-white hover:bg-gray-50/50 transition-colors">
+                        <td className="px-4 py-2.5 font-medium text-gray-600">05/06/2026</td>
+                        <td className="px-4 py-2.5">
+                          <img 
+                            src="https://i.imgur.com/WDliDHF.png" 
+                            alt="Criativo Post 3" 
+                            className="h-15 w-15 object-cover rounded-md border border-gray-200 shadow-xs hover:scale-125 transition-transform duration-200 cursor-zoom-in"
+                            referrerPolicy="no-referrer"
+                            onClick={() => setSelectedImage("https://i.imgur.com/WDliDHF.png")}
+                          />
+                        </td>
+                        <td className="px-4 py-2.5">
+                          <div className="flex items-center gap-1.5">
+                            <div className="flex h-5 w-5 items-center justify-center rounded bg-gradient-to-br from-orange-500 to-pink-500 text-white font-bold text-[8px] shadow-xs">
+                              st
+                            </div>
+                            <span className="font-bold text-gray-800">Instagram Stories</span>
+                          </div>
+                        </td>
+                        <td className="px-4 py-2.5 text-gray-500 font-medium">Story</td>
+                        <td className="px-4 py-2.5 text-right font-semibold text-gray-800">65.163</td>
+                        <td className="px-4 py-2.5 text-right font-semibold text-gray-800">1.210</td>
+                        <td className="px-4 py-2.5">
+                          <div className="flex flex-wrap gap-1">
+                            <span className="inline-flex items-center gap-0.5 rounded bg-orange-50 px-1.5 py-0.5 text-[9px] font-semibold text-orange-700 border border-orange-100 shadow-xs"><Link className="h-2.5 w-2.5 text-orange-500" /> 655 Cliques no Link</span>
+                            <span className="inline-flex items-center gap-0.5 rounded bg-gray-50 px-1.5 py-0.5 text-[9px] font-medium text-gray-600 border border-gray-100"><Heart className="h-2.5 w-2.5 text-gray-400" /> 110 Curtidas</span>
+                            <span className="inline-flex items-center gap-0.5 rounded bg-gray-50 px-1.5 py-0.5 text-[9px] font-medium text-gray-600 border border-gray-100">420 Visitas Perfil</span>
+                            <span className="inline-flex items-center gap-0.5 rounded bg-gray-50 px-1.5 py-0.5 text-[9px] font-medium text-gray-600 border border-gray-100"><MessageSquare className="h-2.5 w-2.5 text-gray-400" /> 14 Respostas</span>
+                            <span className="inline-flex items-center gap-0.5 rounded bg-gray-50 px-1.5 py-0.5 text-[9px] font-medium text-gray-600 border border-gray-100"><Share2 className="h-2.5 w-2.5 text-gray-400" /> 11 Compartilhamentos</span>
+                          </div>
+                        </td>
+                        <td className="px-4 py-2.5 text-center font-bold text-gray-800">1,86%</td>
+                        <td className="px-4 py-2.5 text-center">
+                          <span className="inline-flex items-center rounded-full bg-green-50 px-2 py-0.5 text-[9px] font-bold text-green-700 border border-green-100 shadow-xs">
+                            Orgânico
+                          </span>
+                        </td>
+                      </tr>
+
+                      {/* Post 4 */}
+                      <tr className="bg-slate-50/45 hover:bg-gray-50/50 transition-colors">
+                        <td className="px-4 py-2.5 font-medium text-gray-600">05/06/2026</td>
+                        <td className="px-4 py-2.5">
+                          <img 
+                            src="https://i.imgur.com/WDliDHF.png" 
+                            alt="Criativo Post 4" 
+                            className="h-15 w-15 object-cover rounded-md border border-gray-200 shadow-xs hover:scale-125 transition-transform duration-200 cursor-zoom-in"
+                            referrerPolicy="no-referrer"
+                            onClick={() => setSelectedImage("https://i.imgur.com/WDliDHF.png")}
+                          />
+                        </td>
+                        <td className="px-4 py-2.5">
+                          <div className="flex items-center gap-1.5">
+                            <div className="flex h-5 w-5 items-center justify-center rounded bg-black text-white font-bold text-[8px] shadow-xs">
+                              tt
+                            </div>
+                            <span className="font-bold text-gray-800">TikTok</span>
+                          </div>
+                        </td>
+                        <td className="px-4 py-2.5 text-gray-500 font-medium">Vídeo</td>
+                        <td className="px-4 py-2.5 text-right font-semibold text-gray-800">1.292</td>
+                        <td className="px-4 py-2.5 text-right font-semibold text-gray-800">38</td>
+                        <td className="px-4 py-2.5">
+                          <div className="flex flex-wrap gap-1">
+                            <span className="inline-flex items-center gap-0.5 rounded bg-gray-50 px-1.5 py-0.5 text-[9px] font-medium text-gray-600 border border-gray-100"><Heart className="h-2.5 w-2.5 text-gray-400" /> 33 Curtidas</span>
+                            <span className="inline-flex items-center gap-0.5 rounded bg-gray-50 px-1.5 py-0.5 text-[9px] font-medium text-gray-600 border border-gray-100"><Share className="h-2.5 w-2.5 text-gray-400" /> 5 Compartilhamentos</span>
+                            <span className="inline-flex items-center gap-0.5 rounded bg-gray-50 px-1.5 py-0.5 text-[9px] font-medium text-gray-600 border border-gray-100">0 Comentários</span>
+                          </div>
+                        </td>
+                        <td className="px-4 py-2.5 text-center font-bold text-gray-800">2,94%</td>
+                        <td className="px-4 py-2.5 text-center">
+                          <span className="inline-flex items-center rounded-full bg-green-50 px-2 py-0.5 text-[9px] font-bold text-green-700 border border-green-100 shadow-xs">
+                            Orgânico
+                          </span>
+                        </td>
+                      </tr>
+
+                      {/* Post 5 */}
+                      <tr className="bg-white hover:bg-gray-50/50 transition-colors">
+                        <td className="px-4 py-2.5 font-medium text-gray-600">20/06/2026</td>
+                        <td className="px-4 py-2.5">
+                          <img 
+                            src="https://i.imgur.com/3POoo5F.png" 
+                            alt="Criativo Post 5" 
+                            className="h-15 w-15 object-cover rounded-md border border-gray-200 shadow-xs hover:scale-125 transition-transform duration-200 cursor-zoom-in"
+                            referrerPolicy="no-referrer"
+                            onClick={() => setSelectedImage("https://i.imgur.com/3POoo5F.png")}
+                          />
+                        </td>
+                        <td className="px-4 py-2.5">
+                          <div className="flex items-center gap-1.5">
+                            <div className="flex h-5 w-5 items-center justify-center rounded bg-gradient-to-br from-orange-500 to-pink-500 text-white font-bold text-[8px] shadow-xs">
+                              st
+                            </div>
+                            <span className="font-bold text-gray-800">Instagram Stories</span>
+                          </div>
+                        </td>
+                        <td className="px-4 py-2.5 text-gray-500 font-medium">Story</td>
+                        <td className="px-4 py-2.5 text-right font-semibold text-gray-800">55.323</td>
+                        <td className="px-4 py-2.5 text-right font-semibold text-gray-800">873</td>
+                        <td className="px-4 py-2.5">
+                          <div className="flex flex-wrap gap-1">
+                            <span className="inline-flex items-center gap-0.5 rounded bg-orange-50 px-1.5 py-0.5 text-[9px] font-semibold text-orange-700 border border-orange-100 shadow-xs"><Link className="h-2.5 w-2.5 text-orange-500" /> 358 Cliques no Link</span>
+                            <span className="inline-flex items-center gap-0.5 rounded bg-gray-50 px-1.5 py-0.5 text-[9px] font-medium text-gray-600 border border-gray-100"><Heart className="h-2.5 w-2.5 text-gray-400" /> 85 Curtidas</span>
+                            <span className="inline-flex items-center gap-0.5 rounded bg-gray-50 px-1.5 py-0.5 text-[9px] font-medium text-gray-600 border border-gray-100">425 Visitas Perfil</span>
+                            <span className="inline-flex items-center gap-0.5 rounded bg-gray-50 px-1.5 py-0.5 text-[9px] font-medium text-gray-600 border border-gray-100"><MessageSquare className="h-2.5 w-2.5 text-gray-400" /> 3 Respostas</span>
+                            <span className="inline-flex items-center gap-0.5 rounded bg-gray-50 px-1.5 py-0.5 text-[9px] font-medium text-gray-600 border border-gray-100"><Share2 className="h-2.5 w-2.5 text-gray-400" /> 2 Compartilhamentos</span>
+                          </div>
+                        </td>
+                        <td className="px-4 py-2.5 text-center font-bold text-gray-800">1,58%</td>
+                        <td className="px-4 py-2.5 text-center">
+                          <span className="inline-flex items-center rounded-full bg-green-50 px-2 py-0.5 text-[9px] font-bold text-green-700 border border-green-100 shadow-xs">
+                            Orgânico
+                          </span>
+                        </td>
+                      </tr>
+
+                      {/* Post 6 */}
+                      <tr className="bg-slate-50/45 hover:bg-gray-50/50 transition-colors">
+                        <td className="px-4 py-2.5 font-medium text-gray-600">26/06/2026</td>
+                        <td className="px-4 py-2.5">
+                          <img 
+                            src="https://i.imgur.com/pHogznU.png" 
+                            alt="Criativo Post 6" 
+                            className="h-15 w-15 object-cover rounded-md border border-gray-200 shadow-xs hover:scale-125 transition-transform duration-200 cursor-zoom-in"
+                            referrerPolicy="no-referrer"
+                            onClick={() => setSelectedImage("https://i.imgur.com/pHogznU.png")}
+                          />
+                        </td>
+                        <td className="px-4 py-2.5">
+                          <div className="flex items-center gap-1.5">
+                            <div className="flex h-5 w-5 items-center justify-center rounded bg-gradient-to-br from-orange-500 to-pink-500 text-white font-bold text-[8px] shadow-xs">
+                              st
+                            </div>
+                            <span className="font-bold text-gray-800">Instagram Stories</span>
+                          </div>
+                        </td>
+                        <td className="px-4 py-2.5 text-gray-500 font-medium">Story</td>
+                        <td className="px-4 py-2.5 text-right font-semibold text-gray-800">53.654</td>
+                        <td className="px-4 py-2.5 text-right font-semibold text-gray-800">1.320</td>
+                        <td className="px-4 py-2.5">
+                          <div className="flex flex-wrap gap-1">
+                            <span className="inline-flex items-center gap-0.5 rounded bg-orange-50 px-1.5 py-0.5 text-[9px] font-semibold text-orange-700 border border-orange-100 shadow-xs"><Link className="h-2.5 w-2.5 text-orange-500" /> 812 Cliques no Link</span>
+                            <span className="inline-flex items-center gap-0.5 rounded bg-gray-50 px-1.5 py-0.5 text-[9px] font-medium text-gray-600 border border-gray-100"><Heart className="h-2.5 w-2.5 text-gray-400" /> 77 Curtidas</span>
+                            <span className="inline-flex items-center gap-0.5 rounded bg-gray-50 px-1.5 py-0.5 text-[9px] font-medium text-gray-600 border border-gray-100">425 Visitas Perfil</span>
+                            <span className="inline-flex items-center gap-0.5 rounded bg-gray-50 px-1.5 py-0.5 text-[9px] font-medium text-gray-600 border border-gray-100"><MessageSquare className="h-2.5 w-2.5 text-gray-400" /> 5 Respostas</span>
+                            <span className="inline-flex items-center gap-0.5 rounded bg-gray-50 px-1.5 py-0.5 text-[9px] font-medium text-gray-600 border border-gray-100"><Share2 className="h-2.5 w-2.5 text-gray-400" /> 1 Compartilhamento</span>
+                          </div>
+                        </td>
+                        <td className="px-4 py-2.5 text-center font-bold text-gray-800">2,46%</td>
+                        <td className="px-4 py-2.5 text-center">
+                          <span className="inline-flex items-center rounded-full bg-green-50 px-2 py-0.5 text-[9px] font-bold text-green-700 border border-green-100 shadow-xs">
+                            Orgânico
+                          </span>
+                        </td>
+                      </tr>
+
+                    </tbody>
+                  </table>
+                </div>
               </div>
             </div>
 
@@ -573,6 +841,41 @@ export default function App() {
           </footer>
 
         </motion.div>
+
+        <AnimatePresence>
+          {selectedImage && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setSelectedImage(null)}
+              className="fixed inset-0 z-50 flex items-center justify-center bg-black/85 p-4 backdrop-blur-sm cursor-zoom-out"
+            >
+              <motion.div
+                initial={{ scale: 0.95, y: 15 }}
+                animate={{ scale: 1, y: 0 }}
+                exit={{ scale: 0.95, y: 15 }}
+                transition={{ type: "spring", damping: 25, stiffness: 350 }}
+                onClick={(e) => e.stopPropagation()}
+                className="relative max-w-2xl max-h-[90vh] overflow-hidden rounded-2xl border border-white/10 bg-slate-950 p-1.5 shadow-2xl flex items-center justify-center"
+              >
+                <button
+                  onClick={() => setSelectedImage(null)}
+                  className="absolute right-3 top-3 flex h-8 w-8 items-center justify-center rounded-full bg-black/60 text-white backdrop-blur-md transition-all hover:bg-black/80 hover:scale-105 active:scale-95 border border-white/15 z-10"
+                  aria-label="Fechar"
+                >
+                  <X className="h-4 w-4" />
+                </button>
+                <img
+                  src={selectedImage}
+                  alt="Criativo Ampliado"
+                  className="max-h-[85vh] w-auto max-w-full rounded-xl object-contain shadow-inner"
+                  referrerPolicy="no-referrer"
+                />
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
 
     </div>
   );
